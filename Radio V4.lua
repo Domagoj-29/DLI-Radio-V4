@@ -1,3 +1,43 @@
+-- Initializing variables and tables
+local uiR=0
+local uiG=0
+local uiB=0
+
+local numberChannel={}
+local boolChannel={}
+
+local PTTButton=false
+local ExternalPTT=false
+local muteToggle=false
+
+local FrequencySet=0
+
+local horizontalGap=0
+local verticalGap=0
+
+local maxDigits=6
+local fourDigitTableOffset=0
+
+local Increments={false,false,false,false,false,false}
+local Decrements={false,false,false,false,false,false}
+local Digits={0,0,0,0,0,0}
+
+local incrementCapacitor={}
+local decrementCapacitor={}
+local digitUpDown={}
+
+local frequencyModeCoordinatesX={0,0,0,0,0,0}
+
+local numberDataScrollX=0
+local boolDataScrollX=0
+
+local signalStrength=0
+
+local DataButton=false
+local MuteButton=false
+
+-- onDraw functions
+
 local function drawFrequencyArrow(x,y,isRotated)
 	if isRotated then
 		screen.drawLine(x+1,y+1,x+3,y+1)
@@ -40,14 +80,12 @@ local function drawReturnArrow(shadingOffset)
 	screen.drawLine(0+shadingOffset,2,5+shadingOffset,2)
 	screen.drawLine(1+shadingOffset,3,3+shadingOffset,5)
 end
-
-
-local function isPointInRectangle(x,y,rectX,rectY,rectW,rectH)
-	return x>rectX and y>rectY and x<rectX+rectW and y<rectY+rectH
-end
-function clamp(value,min,max)
-	value=math.max(min,math.min(value,max))
-	return value
+local function getHighlightColor(isSelected)
+	if isSelected then
+		return 255,127,0
+	else
+		return uiR,uiG,uiB
+	end
 end
 local function getSignalColor(signalStrength)
 	if signalStrength<=0.25 then
@@ -59,6 +97,16 @@ local function getSignalColor(signalStrength)
 	else
 		return 8,255,8
 	end
+end
+
+-- onTick functions
+
+local function isPointInRectangle(x,y,rectX,rectY,rectW,rectH)
+	return x>rectX and y>rectY and x<rectX+rectW and y<rectY+rectH
+end
+function clamp(value,min,max)
+	value=math.max(min,math.min(value,max))
+	return value
 end
 local function createCapacitor()
 	local oldBoolValue=false
@@ -172,24 +220,6 @@ local function boolToString(boolValue)
 	end
 end
 
-local uiR=0
-local uiG=0
-local uiB=0
-
-local function getHighlightColor(isSelected)
-	if isSelected then
-		return 255,127,0
-	else
-		return uiR,uiG,uiB
-	end
-end
-
-local maxDigits=6
-local fourDigitTableOffset=0
-
-local digitUpDown={}
-local incrementCapacitor={}
-local decrementCapacitor={}
 for i=1,maxDigits do
 	digitUpDown[i]=createDigitUpDown()
 	incrementCapacitor[i]=createCapacitor()
@@ -203,30 +233,6 @@ mutePushToToggle=createPushToToggle()
 returnButtonPulse=createPulse()
 cycleDataModesPulse=createPulse()
 
-local numberChannel={}
-
-local PTTButton=false
-local ExternalPTT=false
-local muteToggle=false
-
-local FrequencySet=0
-
-local horizontalGap=0
-local verticalGap=0
-
-local Increments={false,false,false,false,false,false}
-local Decrements={false,false,false,false,false,false}
-local Digits={0,0,0,0,0,0}
-
-local frequencyModeCoordinatesX={0,0,0,0,0,0}
-
-local numberDataScrollX=0
-local boolDataScrollX=0
-
-local signalStrength=0
-
-local DataButton=false
-local MuteButton=false
 local screenMode="Menu" -- "Menu","Frequency","NumberData","BoolData","VideoData"
 function onTick()
 	uiR=property.getNumber("UI color R")
@@ -246,15 +252,12 @@ function onTick()
     local isPressed=input.getBool(1)
 	ExternalPTT=input.getBool(3)
 
-	boolChannel={}
 	for i=1,8 do
 		boolChannel[i]=boolToString(input.getBool(3+i))
 	end
 
 	--horizontalGap=clamp((w/32-1),0,2)
 	verticalGap=clamp((h/32-1),0,2)
-
-	frequencyModeCoordinatesX={w/2+10,w/2+5,w/2,w/2-6,w/2-11,w/2-16}
 
 	local ReturnButton=isPressed and isPointInRectangle(inputX,inputY,-1,-1,6,6)
 	if returnButtonPulse(ReturnButton) then
@@ -264,6 +267,7 @@ function onTick()
 
 	maxDigits=w==32 and 4 or 6
 	fourDigitTableOffset=w==32 and 1 or 0
+	frequencyModeCoordinatesX={w/2+10,w/2+5,w/2,w/2-6,w/2-11,w/2-16}
 
 	local cycleDataModes=isPressed and isPointInRectangle(inputX,inputY,w/2-9,-1,16,6)
 
