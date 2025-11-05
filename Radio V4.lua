@@ -1,4 +1,5 @@
 -- Initializing variables and tables
+
 local uiR=0
 local uiG=0
 local uiB=0
@@ -235,9 +236,9 @@ cycleDataModesPulse=createPulse()
 
 local screenMode="Menu" -- "Menu","Frequency","NumberData","BoolData","VideoData"
 function onTick()
-	uiR=property.getNumber("UI color R")
-	uiG=property.getNumber("UI color G")
-	uiB=property.getNumber("UI color B")
+	uiR=property.getNumber("UI R")
+	uiG=property.getNumber("UI G")
+	uiB=property.getNumber("UI B")
 
 	local w=input.getNumber(1)
 	local h=input.getNumber(2)
