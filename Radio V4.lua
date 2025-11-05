@@ -1,3 +1,7 @@
+-- Author: Domagoj29
+-- GitHub: https://github.com/Domagoj-29
+-- Workshop: https://steamcommunity.com/profiles/76561198935577915/myworkshopfiles/
+
 -- Initializing variables and tables
 
 local uiR=0
