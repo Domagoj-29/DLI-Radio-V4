@@ -104,7 +104,7 @@ end
 local function isPointInRectangle(x,y,rectX,rectY,rectW,rectH)
 	return x>rectX and y>rectY and x<rectX+rectW and y<rectY+rectH
 end
-function clamp(value,min,max)
+local function clamp(value,min,max)
 	value=math.max(min,math.min(value,max))
 	return value
 end
