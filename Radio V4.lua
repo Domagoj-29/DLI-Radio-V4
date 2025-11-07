@@ -214,8 +214,16 @@ local function createStringMemoryGate()
 		return storedValue
     end
 end
+local function truncate(number)
+	if number>0 then
+		return math.floor(number)
+	else
+		return math.ceil(number)
+	end
+end
 local function dynamicDecimalRounding(number)
-	return string.format("%.".. math.max(0,4-string.len(clamp(math.floor(number),-9999,99999))) .."f",number)
+	local truncatedNumber=truncate(number)
+	return (number==truncatedNumber) and tostring(truncatedNumber) or string.format("%.".. math.max(0,4-string.len(clamp(truncatedNumber,-9999,99999))) .."f",clamp(number,-9999,99999))
 end
 local function boolToString(boolValue)
 	if boolValue==true then
