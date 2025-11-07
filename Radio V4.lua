@@ -57,23 +57,23 @@ local function drawColon(x,y)
 	screen.drawRectF(x,y+3,1,1)
 end
 local function drawSignalStrengthBackground()
-	screen.drawRectF(w-7,0,1,1)
-	screen.drawRectF(w-5,0,1,2)
-	screen.drawRectF(w-3,0,1,3)
-	screen.drawRectF(w-1,0,1,4)
+	screen.drawRectF(w-7-horizontalGap*4,0,1+horizontalGap,1)
+	screen.drawRectF(w-5-horizontalGap*3,0,1+horizontalGap,2)
+	screen.drawRectF(w-3-horizontalGap*2,0,1+horizontalGap,3)
+	screen.drawRectF(w-1-horizontalGap,0,1+horizontalGap,4)
 end
 local function drawSignalStrengthIndicator(signalStrength)
 	if signalStrength>0 then
-		screen.drawRectF(w-7,0,1,1)
+		screen.drawRectF(w-7-horizontalGap*4,0,1+horizontalGap,1)
 	end
 	if signalStrength>0.25 then
-		screen.drawRectF(w-5,0,1,2)
+		screen.drawRectF(w-5-horizontalGap*3,0,1+horizontalGap,2)
 	end
 	if signalStrength>0.5 then
-		screen.drawRectF(w-3,0,1,3)
+		screen.drawRectF(w-3-horizontalGap*2,0,1+horizontalGap,3)
 	end
 	if signalStrength>0.75 then
-		screen.drawRectF(w-1,0,1,4)
+		screen.drawRectF(w-1-horizontalGap,0,1+horizontalGap,4)
 	end
 end
 local function drawInvisibleRectangles()
@@ -82,7 +82,7 @@ local function drawInvisibleRectangles()
 end
 local function drawReturnArrow(shadingOffset)
 	screen.drawLine(1+shadingOffset,1,3+shadingOffset,-1)
-	screen.drawLine(0+shadingOffset,2,5+shadingOffset,2)
+	screen.drawLine(0+shadingOffset,2,5+shadingOffset+horizontalGap,2)
 	screen.drawLine(1+shadingOffset,3,3+shadingOffset,5)
 end
 local function getHighlightColor(isSelected)
@@ -261,10 +261,10 @@ function onTick()
 		boolChannel[i]=boolToString(input.getBool(3+i))
 	end
 
-	--horizontalGap=clamp((w/32-1),0,2)
+	horizontalGap=clamp((w/32-1),0,2)
 	verticalGap=clamp((h/32-1),0,2)
 
-	local ReturnButton=isPressed and isPointInRectangle(inputX,inputY,-1,-1,6,6)
+	local ReturnButton=isPressed and isPointInRectangle(inputX,inputY,-1,-1,6+horizontalGap,6)
 	if returnButtonPulse(ReturnButton) then
 		previousDataMode(screenMode,screenMode~="Frequency")
 		screenMode="Menu"
