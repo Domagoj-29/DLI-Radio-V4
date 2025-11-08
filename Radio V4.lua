@@ -222,8 +222,13 @@ local function truncate(number)
 	end
 end
 local function dynamicDecimalRounding(number)
-	local truncatedNumber=truncate(number)
-	return (number==truncatedNumber) and tostring(truncatedNumber) or string.format("%.".. math.max(0,4-string.len(clamp(truncatedNumber,-9999,99999))) .."f",clamp(number,-9999,99999))
+	local clampedNumber=clamp(number,-10^(4+horizontalGap)+1,10^(5+horizontalGap)-1)
+	local truncatedNumber=truncate(clampedNumber)
+	local numberLength=string.len(tostring(truncatedNumber))
+	local decimals=math.max(0,4+math.floor(horizontalGap+0.5)-numberLength)
+
+	local roundedNumber=string.format("%." .. decimals .. "f",clampedNumber)
+	return roundedNumber:gsub("(%..-)0+$", "%1"):gsub("%.$", "")
 end
 local function boolToString(boolValue)
 	if boolValue==true then
@@ -367,7 +372,7 @@ function onDraw()
 		for i=1,8 do
 			screen.drawText(1,i*6+i*verticalGap+numberDataScrollX,string.format("%.0f",i))
 			drawColon(6,i*6+i*verticalGap+numberDataScrollX)
-			screen.drawTextBox(w-25,i*6+i*verticalGap+numberDataScrollX,25,5,numberChannel[i],1)
+			screen.drawTextBox(w-35,i*6+i*verticalGap+numberDataScrollX,35,5,numberChannel[i],1)
 		end
 		screen.drawText(w/2-7,0,"Num")
 	elseif screenMode=="BoolData" then
@@ -406,7 +411,7 @@ function onDraw()
 		for i=1,8 do
 			screen.drawText(0,i*6+i*verticalGap+numberDataScrollX,string.format("%.0f",i))
 			drawColon(5,i*6+i*verticalGap+numberDataScrollX)
-			screen.drawTextBox(w-26,i*6+i*verticalGap+numberDataScrollX,25,5,numberChannel[i],1)
+			screen.drawTextBox(w-36,i*6+i*verticalGap+numberDataScrollX,35,5,numberChannel[i],1)
 		end
 
 		screen.setColor(15,15,15)
