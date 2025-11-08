@@ -295,7 +295,7 @@ function onTick()
 
 	local cycleDataModes=isPressed and isPointInRectangle(inputX,inputY,w/2-9,-1,16,6)
 
-	local Up=isPressed and isPointInRectangle(inputX,inputY,-1,-1,w+2,h/2-1)
+	local Up=isPressed and isPointInRectangle(inputX,inputY,-1,-1,w+2,h/2-2)
 	local Down=isPressed and isPointInRectangle(inputX,inputY,-1,h/2+1,w+2,h/2)
 
 	DataButton=false
