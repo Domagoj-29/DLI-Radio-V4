@@ -343,7 +343,6 @@ function onTick()
 	output.setBool(1,PTTButton or ExternalPTT)
 	output.setBool(2,muteToggle)
 	output.setBool(3,videoSwitchbox)
-	-- TODO: Full duplex version
 end
 function onDraw()
 	w=screen.getWidth()
@@ -361,7 +360,6 @@ function onDraw()
 		screen.drawText(w/2-9,h/2-3+verticalGap*2,"DATA")
 		screen.drawText(w/2-9,h/2+3+verticalGap*3,"MUTE")
 		screen.drawText(w-9,h-5,"V4")
-		--screen.drawText(w/2-9,h/2+9,"HDPX")
 	elseif screenMode=="Frequency" then
 		for i=1,maxDigits do
 			screen.drawText(frequencyModeCoordinatesX[i+fourDigitTableOffset]+2,h/2-3,string.format("%.0f",Digits[i]))
