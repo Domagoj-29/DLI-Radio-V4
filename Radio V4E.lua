@@ -151,16 +151,6 @@ local function createCapacitor()
 		return (dischargeCounter>0 and dischargeCounter<dischargeTicks) or (chargeCounter==chargeTicks and boolValue)
 	end
 end
---[[local function createDelay()
-	local counter=0
-	return function(boolValue,delayTicks)
-		counter=boolValue and counter+1 or delayTicks
-		if counter==delayTicks or counter==1 then
-			counter=0
-			return true
-		end
-	end
-end]]
 local function createScrollUpDown()
 	local counter=0
 	return function(down,up)
@@ -265,13 +255,6 @@ mutePushToToggle=createPushToToggle()
 duplexPushToToggle=createPushToToggle()
 returnButtonPulse=createPulse()
 cycleDataModesPulse=createPulse()
-
---[[
-bool 1, HDPX PTT
-bool 4, FDPX PTT
-bool 5, HDPX or FDPX PTT
-bool 6, isFullDuplex itself (for switchbox switching)
-]]
 
 local screenMode="Menu" -- "Menu","Frequency","NumberData","BoolData","VideoData"
 function onTick()
@@ -386,7 +369,6 @@ function onTick()
 	output.setBool(3,videoSwitchbox)
 	output.setBool(5,PTTButton or ExternalPTT)
 	output.setBool(6,isFullDuplex)
-	-- TODO: Full duplex version
 end
 function onDraw()
 	w=screen.getWidth()
