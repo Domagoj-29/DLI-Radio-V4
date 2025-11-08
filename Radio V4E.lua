@@ -412,7 +412,7 @@ function onDraw()
 			screen.drawText(w-14,h-5,"V4E")
 		end
 	elseif screenMode=="Frequency" then
-		if w>32 then
+		if w>32 and isFullDuplex then
 			screen.drawText(1,h/2-7,"RECV")
 			drawColon(21,h/2-7)
 			screen.drawText(1,h/2+6,"SEND")
@@ -470,7 +470,7 @@ function onDraw()
 		screen.drawText(w/2-10,h/2+3+verticalGap*3,"MUTE")
 	elseif screenMode=="Frequency" then
 		screen.setColor(uiR,uiG,uiB)
-		if w>32 then
+		if w>32 and isFullDuplex then
 			screen.drawText(0,h/2-7,"RECV")
 			drawColon(20,h/2-7)
 			screen.drawText(0,h/2+6,"SEND")
