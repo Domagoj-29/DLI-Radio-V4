@@ -51,6 +51,9 @@ local DataButton=false
 local MuteButton=false
 local DuplexButton=false
 
+local w=0
+local h=0
+
 -- onDraw functions
 
 local function drawFrequencyArrow(x,y,isRotated)
@@ -262,8 +265,6 @@ function onTick()
 	uiG=property.getNumber("UI G")
 	uiB=property.getNumber("UI B")
 
-	local w=input.getNumber(1)
-	local h=input.getNumber(2)
 	local inputX=input.getNumber(3)
 	local inputY=input.getNumber(4)
 	signalStrength=input.getNumber(7)
