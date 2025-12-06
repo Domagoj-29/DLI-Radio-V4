@@ -398,8 +398,11 @@ function onDraw()
 		if w>32 and isFullDuplex then
 			screen.drawText(1,h/2-7,"RECV")
 			drawColon(21,h/2-7)
-			screen.drawText(1,h/2+6,"SEND")
-			drawColon(21,h/2+6)
+			screen.drawText(1,h/2+7,"SEND")
+			drawColon(21,h/2+7)
+		elseif isFullDuplex then
+			screen.drawText(1,h/2-7,"R")
+			screen.drawText(1,h/2+7,"S")
 		end
 		for i=1,maxDigits do
 			if not isFullDuplex then
@@ -456,8 +459,11 @@ function onDraw()
 		if w>32 and isFullDuplex then
 			screen.drawText(0,h/2-7,"RECV")
 			drawColon(20,h/2-7)
-			screen.drawText(0,h/2+6,"SEND")
-			drawColon(20,h/2+6)
+			screen.drawText(0,h/2+7,"SEND")
+			drawColon(20,h/2+7)
+		elseif isFullDuplex then
+			screen.drawText(0,h/2-7,"R")
+			screen.drawText(0,h/2+7,"S")
 		end
 		for i=1,maxDigits do
  			if not isFullDuplex then
