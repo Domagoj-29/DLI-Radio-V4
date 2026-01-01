@@ -190,12 +190,12 @@ local function boolToString(boolValue)
 end
 
 digitUpDown={}
-incrementCapacitor={}
-decrementCapacitor={}
+IncrementCapacitor={}
+DecrementCapacitor={}
 for i=1,6 do
 	digitUpDown[i]=createDigitUpDown()
-	incrementCapacitor[i]=createCapacitor()
-	decrementCapacitor[i]=createCapacitor()
+	IncrementCapacitor[i]=createCapacitor()
+	DecrementCapacitor[i]=createCapacitor()
 end
 
 local numberDataScroll=createScrollUpDown()
@@ -361,10 +361,10 @@ function onDraw()
 			screen.setColor(UiR,UiG,UiB)
 			screen.drawText(FrequencyModeCoordinatesX[i+FourDigitTableOffset]+1,h/2-3,string.format("%.0f",Digits[i]))
 
-			screen.setColor(getHighlightColor(incrementCapacitor[i](Increments[i],1,15)))
+			screen.setColor(getHighlightColor(IncrementCapacitor[i](Increments[i],1,15)))
 			drawFrequencyArrow(FrequencyModeCoordinatesX[i+FourDigitTableOffset]+1,h/2-6,false)
 
-			screen.setColor(getHighlightColor(decrementCapacitor[i](Decrements[i],1,15)))
+			screen.setColor(getHighlightColor(DecrementCapacitor[i](Decrements[i],1,15)))
 			drawFrequencyArrow(FrequencyModeCoordinatesX[i+FourDigitTableOffset]+1,h/2+3,true)
 		end
 	elseif ScreenMode=="NumberData" then
