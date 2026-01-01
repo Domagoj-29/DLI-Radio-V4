@@ -268,7 +268,6 @@ function onTick()
 		if frqButton then
 			ScreenMode="Frequency"
 		end
-		PTTButtonR,PTTButtonG,PTTButtonB=getHighlightColor(PTTButton or ExternalPTT)
 		if dataButton then
 			ScreenMode=previousDataMode(nil,false)
 		end
