@@ -241,8 +241,8 @@ function onTick()
 	HorizontalGap=clamp((w/32-1),0,2)
 	VerticalGap=clamp((h/32-1),0,2)
 
-	local ReturnButton=isPressed and isPointInRectangle(inputX,inputY,-1,-1,6+HorizontalGap,6)
-	if returnButtonPulse(ReturnButton) then
+	local returnButton=isPressed and isPointInRectangle(inputX,inputY,-1,-1,6+HorizontalGap,6)
+	if returnButtonPulse(returnButton) then
 		previousDataMode(ScreenMode,ScreenMode~="Frequency")
 		ScreenMode="Menu"
 	end
@@ -280,14 +280,14 @@ function onTick()
 		end
 		FrequencySet=Digits[1]+Digits[2]*10+Digits[3]*100+Digits[4]*1000+Digits[5]*10000+Digits[6]*100000
 	elseif ScreenMode=="NumberData" then
-		local notAnyButton=not (ReturnButton or dataButton or cycleDataModes)
+		local notAnyButton=not (returnButton or dataButton or cycleDataModes)
 		NumberDataScrollY=h==32 and numberDataScroll(down and notAnyButton,up and notAnyButton) or 0
 
 		if cycleDataModesPulse(cycleDataModes) then
 			ScreenMode="BoolData"
 		end
 	elseif ScreenMode=="BoolData" then
-		local notAnyButton=not (ReturnButton or dataButton or cycleDataModes)
+		local notAnyButton=not (returnButton or dataButton or cycleDataModes)
 		BoolDataScrollY=h==32 and boolDataScroll(down and notAnyButton,up and notAnyButton) or 0
 
 		if cycleDataModesPulse(cycleDataModes) then
