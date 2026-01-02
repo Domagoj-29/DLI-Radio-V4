@@ -254,8 +254,8 @@ function onTick()
 	HorizontalGap=clamp((w/32-1),0,2)
 	VerticalGap=clamp((h/32-1),0,2)
 
-	local ReturnButton=isPressed and isPointInRectangle(inputX,inputY,-1,-1,6+HorizontalGap,6)
-	if returnButtonPulse(ReturnButton) then
+	local returnButton=isPressed and isPointInRectangle(inputX,inputY,-1,-1,6+HorizontalGap,6)
+	if returnButtonPulse(returnButton) then
 		previousDataMode(ScreenMode,ScreenMode~="Frequency")
 		ScreenMode="Menu"
 	end
@@ -307,14 +307,14 @@ function onTick()
 		ReceiveFrequencySet=ReceiveDigits[1]+ReceiveDigits[2]*10+ReceiveDigits[3]*100+ReceiveDigits[4]*1000+ReceiveDigits[5]*10000+ReceiveDigits[6]*100000
 		SendFrequencySet=SendDigits[1]+SendDigits[2]*10+SendDigits[3]*100+SendDigits[4]*1000+SendDigits[5]*10000+SendDigits[6]*100000
 	elseif ScreenMode=="NumberData" then
-		local notAnyButton=not (ReturnButton or dataButton or cycleDataModes)
+		local notAnyButton=not (returnButton or dataButton or cycleDataModes)
 		NumberDataScrollY=h==32 and numberDataScroll(down and notAnyButton,up and notAnyButton) or 0
 
 		if cycleDataModesPulse(cycleDataModes) then
 			ScreenMode="BoolData"
 		end
 	elseif ScreenMode=="BoolData" then
-		local notAnyButton=not (ReturnButton or dataButton or cycleDataModes)
+		local notAnyButton=not (returnButton or dataButton or cycleDataModes)
 		BoolDataScrollY=h==32 and boolDataScroll(down and notAnyButton,up and notAnyButton) or 0
 
 		if cycleDataModesPulse(cycleDataModes) then
