@@ -179,7 +179,7 @@ local function dynamicDecimalRounding(number)
 	local decimals=math.max(0,4+math.floor(HorizontalGap+0.5)-numberLength)
 
 	local roundedNumber=string.format("%." .. decimals .. "f",clampedNumber)
-	return roundedNumber:gsub("(%..-)0+$", "%1"):gsub("%.$", "")
+	return roundedNumber  --:gsub("(%..-)0+$", "%1"):gsub("%.$", "")
 end
 local function boolToString(boolValue)
 	if boolValue==true then
