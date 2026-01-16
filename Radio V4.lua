@@ -189,11 +189,11 @@ local function boolToString(boolValue)
 	end
 end
 
-digitUpDown={}
+DigitUpDown={}
 IncrementCapacitor={}
 DecrementCapacitor={}
 for i=1,6 do
-	digitUpDown[i]=createDigitUpDown()
+	DigitUpDown[i]=createDigitUpDown()
 	IncrementCapacitor[i]=createCapacitor()
 	DecrementCapacitor[i]=createCapacitor()
 end
@@ -276,7 +276,7 @@ function onTick()
 		for i=1,MaxDigits do
 			Increments[i]=isPressed and isPointInRectangle(inputX,inputY,FrequencyModeCoordinatesX[i+FourDigitTableOffset],h/2-9,5,6)
 			Decrements[i]=isPressed and isPointInRectangle(inputX,inputY,FrequencyModeCoordinatesX[i+FourDigitTableOffset],h/2+1,5,6)
-			Digits[i]=digitUpDown[i](Increments[i],Decrements[i])
+			Digits[i]=DigitUpDown[i](Increments[i],Decrements[i])
 		end
 		FrequencySet=Digits[1]+Digits[2]*10+Digits[3]*100+Digits[4]*1000+Digits[5]*10000+Digits[6]*100000
 	elseif ScreenMode=="NumberData" then
