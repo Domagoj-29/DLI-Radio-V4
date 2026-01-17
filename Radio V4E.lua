@@ -118,7 +118,7 @@ local function createDigitUpDown()
 	local delayTicks=15
 	local timer=0
 	local counter=0
-	return function(up,down)
+	return function(down,up)
 		if up or down then
 			timer=timer+1
 			if timer>delayTicks then
@@ -293,15 +293,15 @@ function onTick()
 			if not IsFullDuplex then
 				ReceiveIncrements[i]=isPressed and isPointInRectangle(inputX,inputY,FrequencyModeCoordinatesX[i+FourDigitTableOffset],h/2-9,5,6)
 				ReceiveDecrements[i]=isPressed and isPointInRectangle(inputX,inputY,FrequencyModeCoordinatesX[i+FourDigitTableOffset],h/2+1,5,6)
-				ReceiveDigits[i]=ReceiveDigitUpDown[i](ReceiveIncrements[i],ReceiveDecrements[i])
+				ReceiveDigits[i]=ReceiveDigitUpDown[i](ReceiveDecrements[i],ReceiveIncrements[i])
 			else
 				ReceiveIncrements[i]=isPressed and isPointInRectangle(inputX,inputY,FrequencyModeCoordinatesX[i+FourDigitTableOffset],h/2-12,5,6)
 				ReceiveDecrements[i]=isPressed and isPointInRectangle(inputX,inputY,FrequencyModeCoordinatesX[i+FourDigitTableOffset],h/2-4,5,6)
-				ReceiveDigits[i]=ReceiveDigitUpDown[i](ReceiveIncrements[i],ReceiveDecrements[i])
+				ReceiveDigits[i]=ReceiveDigitUpDown[i](ReceiveDecrements[i],ReceiveIncrements[i])
 
 				SendIncrements[i]=isPressed and isPointInRectangle(inputX,inputY,FrequencyModeCoordinatesX[i+FourDigitTableOffset],h/2+2,5,6)
 				SendDecrements[i]=isPressed and isPointInRectangle(inputX,inputY,FrequencyModeCoordinatesX[i+FourDigitTableOffset],h/2+10,5,6)
-				SendDigits[i]=SendDigitUpDown[i](SendIncrements[i],SendDecrements[i])
+				SendDigits[i]=SendDigitUpDown[i](SendDecrements[i],SendIncrements[i])
 			end
 		end
 		ReceiveFrequencySet=ReceiveDigits[1]+ReceiveDigits[2]*10+ReceiveDigits[3]*100+ReceiveDigits[4]*1000+ReceiveDigits[5]*10000+ReceiveDigits[6]*100000
