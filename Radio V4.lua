@@ -118,7 +118,7 @@ local function createDigitUpDown()
 	local delayTicks=15
 	local timer=0
 	local counter=0
-	return function(up,down)
+	return function(down,up)
 		if up or down then
 			timer=timer+1
 			if timer>delayTicks then
@@ -276,7 +276,7 @@ function onTick()
 		for i=1,MaxDigits do
 			Increments[i]=isPressed and isPointInRectangle(inputX,inputY,FrequencyModeCoordinatesX[i+FourDigitTableOffset],h/2-9,5,6)
 			Decrements[i]=isPressed and isPointInRectangle(inputX,inputY,FrequencyModeCoordinatesX[i+FourDigitTableOffset],h/2+1,5,6)
-			Digits[i]=DigitUpDown[i](Increments[i],Decrements[i])
+			Digits[i]=DigitUpDown[i](Decrements[i],Increments[i])
 		end
 		FrequencySet=Digits[1]+Digits[2]*10+Digits[3]*100+Digits[4]*1000+Digits[5]*10000+Digits[6]*100000
 	elseif ScreenMode=="NumberData" then
